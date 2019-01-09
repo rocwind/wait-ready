@@ -1,5 +1,11 @@
 export type WaitForReady = () => Promise<any>;
 export type ReadyStatusSetter = (value?: any) => void;
+export enum ReadyStatusEnum {
+    Pending = 0,
+    Ready = 1,
+    Failed = -1,
+}
+export type ReadyStatusGetter = () => ReadyStatusEnum;
 
 /**
  * The return object of beginWait()
@@ -17,11 +23,14 @@ export interface BeginWaitReturn {
      * set the ready status to rejected
      */
     setFailed: ReadyStatusSetter,
+    /**
+     * get current ready status
+     */
+    getStatus: ReadyStatusGetter,
 }
 
 export const beginWait = (): BeginWaitReturn => {
-    let settled: boolean = false;
-    let resolved: boolean = false;
+    let readyStatus: ReadyStatusEnum = ReadyStatusEnum.Pending;
     let value: any;
     let waitPromise: Promise<any>;
     let waitPromiseResolve: (value) => void;
@@ -29,10 +38,14 @@ export const beginWait = (): BeginWaitReturn => {
 
     return {
         wait: () => {
-            if (settled) {
-                return resolved
-                    ? Promise.resolve(value)
-                    : Promise.reject(value);
+            switch (readyStatus) {
+                case ReadyStatusEnum.Ready:
+                    return Promise.resolve(value);
+                case ReadyStatusEnum.Failed:
+                    return Promise.reject(value)
+                case ReadyStatusEnum.Pending:
+                default:
+                    break;
             }
 
             if (!waitPromise) {
@@ -43,12 +56,12 @@ export const beginWait = (): BeginWaitReturn => {
             }
             return waitPromise;
         },
+
         setReady: (result) => {
-            if (settled) {
+            if (readyStatus !== ReadyStatusEnum.Pending) {
                 return;
             }
-            settled = true;
-            resolved = true;
+            readyStatus = ReadyStatusEnum.Ready;
             value = result;
             if (waitPromiseResolve) {
                 waitPromiseResolve(result);
@@ -57,12 +70,12 @@ export const beginWait = (): BeginWaitReturn => {
                 waitPromise = null;
             }
         },
+
         setFailed: (reason) => {
-            if (settled) {
+            if (readyStatus !== ReadyStatusEnum.Pending) {
                 return;
             }
-            settled = true;
-            resolved = false;
+            readyStatus = ReadyStatusEnum.Failed;
             value = reason;
             if (waitPromiseReject) {
                 waitPromiseReject(reason);
@@ -71,5 +84,7 @@ export const beginWait = (): BeginWaitReturn => {
                 waitPromise = null;
             }
         },
+
+        getStatus: () => readyStatus,
     };
 }
