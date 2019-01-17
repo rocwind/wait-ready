@@ -27,8 +27,8 @@
   },
   "homepage": "https://github.com/rocwind/wait-ready#readme",
   "devDependencies": {
-    "del-cli": "^1.1.0",
-    "rollup": "^0.67.4",
-    "typescript": "^3.2.2"
+    "del-cli": "1.1.0",
+    "rollup": "0.67.4",
+    "typescript": "3.2.2"
   }
 }
