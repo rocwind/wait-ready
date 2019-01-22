@@ -10,3 +10,6 @@ trim_trailing_whitespace = true
 
 [*.json]
 indent_size = 2
+
+[{jest.config.js,.travis.yml}]
+indent_size = 2
