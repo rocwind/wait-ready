@@ -14,7 +14,7 @@
     "compile": "tsc --outDir lib -d",
     "preversion": "npm run build",
     "postversion": "git push origin master && git push origin --tags && npm publish",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -27,8 +27,11 @@
   },
   "homepage": "https://github.com/rocwind/wait-ready#readme",
   "devDependencies": {
+    "@types/jest": "^23.3.13",
     "del-cli": "1.1.0",
+    "jest": "^23.6.0",
     "rollup": "0.67.4",
+    "ts-jest": "^23.10.5",
     "typescript": "3.2.2"
   }
 }
