@@ -63,12 +63,12 @@ it('cannot change result after set ready once', () => {
     return expect(wait()).resolves.toBeUndefined();
 });
 
-it('has no effect to set pending status', () => {
-    const { setReady, setResult, wait, getStatus } = beginWait();
-    setResult(ReadyStatusEnum.Pending, 'something ignored');
+it('can reset to pending status', () => {
+    const { setReady, getStatus, reset } = beginWait();
     expect(getStatus()).toBe(ReadyStatusEnum.Pending);
     setReady();
     expect(getStatus()).toBe(ReadyStatusEnum.Ready);
-    return expect(wait()).resolves.toBeUndefined();
+    reset();
+    expect(getStatus()).toBe(ReadyStatusEnum.Pending);
 });
 

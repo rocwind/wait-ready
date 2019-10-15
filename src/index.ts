@@ -4,11 +4,10 @@ export enum ReadyStatusEnum {
     Ready = 1,
     Failed = -1,
 }
-export type ReadyResultSetter = (status: ReadyStatusEnum, value?: any) => void;
 /**
  * short cut method for set ready result
  */
-export type ReadyOrFailedSetter = (value?: any) => void;
+export type ReadyStatusSetter = (value?: any) => void;
 export type ReadyStatusGetter = () => ReadyStatusEnum;
 export type ReadyResultValueGetter = () => any;
 
@@ -21,17 +20,13 @@ export interface BeginWaitReturn {
      */
     wait: WaitForReady,
     /**
-     * set the ready status
+     * set the ready status to ready/resolved
      */
-    setResult: ReadyResultSetter,
+    setReady: ReadyStatusSetter,
     /**
-     * set the ready status to resolved
+     * set the ready status to failed/rejected
      */
-    setReady: ReadyOrFailedSetter,
-    /**
-     * set the ready status to rejected
-     */
-    setFailed: ReadyOrFailedSetter,
+    setFailed: ReadyStatusSetter,
     /**
      * get current ready status
      */
@@ -40,6 +35,10 @@ export interface BeginWaitReturn {
      * get the result value or failed reason
      */
     getResultValue: ReadyResultValueGetter,
+    /**
+     * reset the ready status to pending
+     */
+    reset: ReadyStatusSetter,
 }
 
 export const beginWait = (): BeginWaitReturn => {
@@ -50,8 +49,13 @@ export const beginWait = (): BeginWaitReturn => {
     let waitPromiseReject: (value) => void;
 
     const setResult = (status: ReadyStatusEnum, value?: any) => {
+        // skip set to same status
+        if (readyStatus === status) {
+            return;
+        }
+        // cannot set ready status to fail or vice vesa
         if (readyStatus !== ReadyStatusEnum.Pending
-            || status === ReadyStatusEnum.Pending) {
+            && status !== ReadyStatusEnum.Pending) {
             return;
         }
         readyStatus = status;
@@ -96,8 +100,6 @@ export const beginWait = (): BeginWaitReturn => {
             return waitPromise;
         },
 
-        setResult,
-
         setReady: (value) => {
             setResult(ReadyStatusEnum.Ready, value);
         },
@@ -109,5 +111,9 @@ export const beginWait = (): BeginWaitReturn => {
         getStatus: () => readyStatus,
 
         getResultValue: () => resultValue,
+
+        reset: (value) => {
+            setResult(ReadyStatusEnum.Pending, value);
+        },
     };
 }
