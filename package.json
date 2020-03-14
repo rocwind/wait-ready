@@ -13,7 +13,8 @@
     "build": "npm run clean && npm run compile && rollup lib/index.js --file lib/bundle.js --format cjs",
     "compile": "tsc --outDir lib -d",
     "preversion": "npm test && npm run build",
-    "postversion": "git push origin master && git push origin --tags && npm publish",
+    "postversion": "git push --follow-tags origin master && npm publish",
+    "release": "standard-version",
     "test": "jest"
   },
   "repository": {
@@ -31,6 +32,7 @@
     "del-cli": "3.0.0",
     "jest": "25.1.0",
     "rollup": "2.0.6",
+    "standard-version": "^7.1.0",
     "ts-jest": "25.2.1",
     "typescript": "3.8.3"
   }
