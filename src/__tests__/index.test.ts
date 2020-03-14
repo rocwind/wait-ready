@@ -1,74 +1,73 @@
-import { beginWait, ReadyStatusEnum } from '../index';
+import { wait, ReadyStatusEnum } from '../index';
 
 it('resolves with no value set', () => {
-    const { setReady, wait } = beginWait();
+    const { setReady, afterReady } = wait();
     setReady();
-    return expect(wait()).resolves.toBeUndefined();
+    return expect(afterReady()).resolves.toBeUndefined();
 });
 
 it('resolves with value set', () => {
-    const { setReady, wait, getResultValue } = beginWait();
+    const { setReady, afterReady, getResultValue } = wait<number>();
     const value = 1;
     setReady(value);
     expect(getResultValue()).toBe(value);
-    return expect(wait()).resolves.toBe(value);
+    return expect(afterReady()).resolves.toBe(value);
 });
 
 it('rejects with no reason set', () => {
-    const { setFailed, wait } = beginWait();
+    const { setFailed, afterReady } = wait();
     setFailed();
-    return expect(wait()).rejects.toBeUndefined();
+    return expect(afterReady()).rejects.toBeUndefined();
 });
 
 it('rejects with reason set', () => {
-    const { setFailed, wait, getResultValue } = beginWait();
+    const { setFailed, afterReady, getResultValue } = wait<string>();
     const reason = 'unknown error';
     setFailed(reason);
     expect(getResultValue()).toBe(reason);
-    return expect(wait()).rejects.toBe(reason);
+    return expect(afterReady()).rejects.toBe(reason);
 });
 
 it('resolves after wait', () => {
-    const { setReady, wait } = beginWait();
-    const testStep = expect(wait()).resolves.toBeUndefined();
+    const { setReady, afterReady } = wait();
+    const testStep = expect(afterReady()).resolves.toBeUndefined();
     setReady();
     return testStep;
 });
 
 it('rejects after wait', () => {
-    const { setFailed, wait } = beginWait();
-    const testStep = expect(wait()).rejects.toBeUndefined();
+    const { setFailed, afterReady } = wait();
+    const testStep = expect(afterReady()).rejects.toBeUndefined();
     setFailed();
     return testStep;
 });
 
 it('status should turn to ready after setReady', () => {
-    const { setReady, getStatus } = beginWait();
+    const { setReady, getStatus } = wait();
     expect(getStatus()).toBe(ReadyStatusEnum.Pending);
     setReady();
     expect(getStatus()).toBe(ReadyStatusEnum.Ready);
 });
 
 it('status should turn to failed after setFailed', () => {
-    const { setFailed, getStatus } = beginWait();
+    const { setFailed, getStatus } = wait();
     expect(getStatus()).toBe(ReadyStatusEnum.Pending);
     setFailed();
     expect(getStatus()).toBe(ReadyStatusEnum.Failed);
 });
 
 it('cannot change result after set ready once', () => {
-    const { setReady, wait } = beginWait();
+    const { setReady, afterReady } = wait();
     setReady();
     setReady('another call');
-    return expect(wait()).resolves.toBeUndefined();
+    return expect(afterReady()).resolves.toBeUndefined();
 });
 
 it('can reset to pending status', () => {
-    const { setReady, getStatus, reset } = beginWait();
+    const { setReady, getStatus, reset } = wait();
     expect(getStatus()).toBe(ReadyStatusEnum.Pending);
     setReady();
     expect(getStatus()).toBe(ReadyStatusEnum.Ready);
     reset();
     expect(getStatus()).toBe(ReadyStatusEnum.Pending);
 });
-
