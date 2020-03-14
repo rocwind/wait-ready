@@ -12,13 +12,8 @@
     "clean": "del-cli lib",
     "build": "npm run clean && npm run compile && rollup lib/index.js --file lib/bundle.js --format cjs",
     "compile": "tsc --outDir lib -d",
-    "release": "standard-version && git push --follow-tags origin master && npm publish",
+    "release": "npm test && npm run build && standard-version && git push --follow-tags origin master && npm publish",
     "test": "jest"
-  },
-  "standard-version": {
-    "scripts": {
-      "prerelease": "npm test && npm run build"
-    }
   },
   "repository": {
     "type": "git",
