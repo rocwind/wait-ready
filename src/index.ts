@@ -15,34 +15,44 @@ export type AfterReady<T> = () => Promise<T>;
 /**
  * The return object of wait()
  */
-export interface WaitReturn<T> {
+export type WaitReturn<T, Name extends string> = {
     /**
      * wait for ready, returns a promise that resolves or rejects on ready status change
      */
-    afterReady: AfterReady<T>;
-    /**
-     * set the ready status to ready/resolved
-     */
-    setReady: ReadyStatusSetter<T>;
-    /**
-     * set the ready status to failed/rejected
-     */
-    setFailed: ReadyStatusSetter<T>;
-    /**
-     * get current ready status
-     */
-    getStatus: ReadyStatusGetter;
-    /**
-     * get the result value or failed reason
-     */
-    getResultValue: ReadyResultValueGetter<T>;
-    /**
-     * reset the ready status to pending
-     */
-    reset: ReadyStatusSetter<T>;
-}
+    [P in `after${Name}Ready`]: AfterReady<T>;
+} &
+    {
+        /**
+         * set the ready status to ready/resolved
+         */
+        [P in `set${Name}Ready`]: ReadyStatusSetter<T>;
+    } &
+    {
+        /**
+         * set the ready status to failed/rejected
+         */
+        [P in `set${Name}Failed`]: ReadyStatusSetter<T>;
+    } &
+    {
+        /**
+         * get current ready status
+         */
+        [P in `get${Name}Status`]: ReadyStatusGetter;
+    } &
+    {
+        /**
+         * get the result value or failed reason
+         */
+        [P in `get${Name}ResultValue`]: ReadyResultValueGetter<T>;
+    } &
+    {
+        /**
+         * reset the ready status to pending
+         */
+        [P in `reset${Name}`]: ReadyStatusSetter<T>;
+    };
 
-export const wait = <T>(): WaitReturn<T> => {
+export const wait = <T, Name extends string = ''>(name?: Name): WaitReturn<T, Name> => {
     let readyStatus: ReadyStatusEnum = ReadyStatusEnum.Pending;
     let resultValue: T;
     let waitPromise: Promise<T>;
@@ -79,8 +89,9 @@ export const wait = <T>(): WaitReturn<T> => {
         waitPromise = null;
     };
 
+    const targeName = name ?? '';
     return {
-        afterReady: () => {
+        [`after${targeName}Ready`]: () => {
             switch (readyStatus) {
                 case ReadyStatusEnum.Ready:
                     return Promise.resolve(resultValue);
@@ -100,20 +111,20 @@ export const wait = <T>(): WaitReturn<T> => {
             return waitPromise;
         },
 
-        setReady: value => {
+        [`set${targeName}Ready`]: (value) => {
             setResult(ReadyStatusEnum.Ready, value);
         },
 
-        setFailed: reason => {
+        [`set${targeName}Failed`]: (reason) => {
             setResult(ReadyStatusEnum.Failed, reason);
         },
 
-        getStatus: () => readyStatus,
+        [`get${targeName}Status`]: () => readyStatus,
 
-        getResultValue: () => resultValue,
+        [`get${targeName}ResultValue`]: () => resultValue,
 
-        reset: value => {
+        [`reset${targeName}`]: (value) => {
             setResult(ReadyStatusEnum.Pending, value);
         },
-    };
+    } as WaitReturn<T, Name>;
 };

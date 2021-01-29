@@ -71,3 +71,9 @@ it('can reset to pending status', () => {
     reset();
     expect(getStatus()).toBe(ReadyStatusEnum.Pending);
 });
+
+it('can set target name', () => {
+    const { setMyTaskReady, afterMyTaskReady } = wait('MyTask');
+    setMyTaskReady();
+    return expect(afterMyTaskReady()).resolves.toBeUndefined();
+});

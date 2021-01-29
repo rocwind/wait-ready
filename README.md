@@ -21,5 +21,8 @@ afterReady().then(() => {
 
 // update ready status when and trigger the pending actions
 setReady();
+
+// set a name for wait task
+const { afterLoadingReady, setLoadingReady } = wait('Loading');
 ```
 
