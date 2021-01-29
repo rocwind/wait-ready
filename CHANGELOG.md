@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.5.1](https://github.com/rocwind/wait-ready/compare/v0.5.0...v0.5.1) (2021-01-29)
+
+
+### Features
+
+* support set a name for waiting task ([0ce972b](https://github.com/rocwind/wait-ready/commit/0ce972bb004dfde09d95223b69081812a9fe4f83))
+
 ## [0.5.0](https://github.com/rocwind/wait-ready/compare/v0.4.0...v0.5.0) (2020-03-14)
 
 
