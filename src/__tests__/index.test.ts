@@ -1,4 +1,4 @@
-import { wait, ReadyStatusEnum } from '../index';
+import { wait, ReadyStatusEnum, withReady } from '../index';
 
 it('resolves with no value set', () => {
     const { setReady, afterReady } = wait();
@@ -76,4 +76,10 @@ it('can set target name', () => {
     const { setMyTaskReady, afterMyTaskReady } = wait('MyTask');
     setMyTaskReady();
     return expect(afterMyTaskReady()).resolves.toBeUndefined();
+});
+
+it('can wait ready for function withReady', () => {
+    const myFunc = (a: number, b: number) => a + b;
+    const myFuncWithReady = withReady(myFunc, Promise.resolve());
+    return expect(myFuncWithReady(1, 2)).resolves.toBe(3);
 });
