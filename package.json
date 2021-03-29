@@ -10,8 +10,8 @@
   ],
   "scripts": {
     "clean": "del-cli lib",
-    "build": "npm run clean && npm run compile && rollup lib/index.js --file lib/bundle.js --format cjs",
-    "compile": "tsc --outDir lib -d",
+    "build": "npm run clean && npm run compile && rollup --config",
+    "compile": "tsc -d",
     "release": "npm test && npm run build && standard-version && git push --follow-tags origin master && npm publish",
     "test": "jest"
   },
@@ -26,6 +26,8 @@
   },
   "homepage": "https://github.com/rocwind/wait-ready#readme",
   "devDependencies": {
+    "@babel/preset-env": "7.13.12",
+    "@rollup/plugin-babel": "5.3.0",
     "@types/jest": "26.0.22",
     "del-cli": "3.0.1",
     "jest": "26.6.3",
