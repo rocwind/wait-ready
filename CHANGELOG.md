@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.5.3](https://github.com/rocwind/wait-ready/compare/v0.5.2...v0.5.3) (2021-03-29)
+
+
+### Bug Fixes
+
+* add babel plugin to rollup to ensure es5 format foor bundle.js ([154b5bb](https://github.com/rocwind/wait-ready/commit/154b5bb44905e55b951f5eacc7759a0297bd7e4e))
+
 ### [0.5.2](https://github.com/rocwind/wait-ready/compare/v0.5.1...v0.5.2) (2021-03-10)
 
 
