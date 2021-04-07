@@ -129,7 +129,6 @@ export const wait = <T, Name extends string = ''>(name?: Name): WaitReturn<T, Na
     } as WaitReturn<T, Name>;
 };
 
-type ParametersTypes<T> = T extends (...args: infer P) => unknown ? P : [];
 type Promisify<T> = T extends Promise<unknown> ? T : Promise<T>;
 
 /**
@@ -141,8 +140,8 @@ type Promisify<T> = T extends Promise<unknown> ? T : Promise<T>;
 export function withReady<T extends (...args: unknown[]) => unknown>(
     func: T,
     ready: Promise<unknown>,
-): (...args: ParametersTypes<T>) => Promisify<ReturnType<T>> {
-    return ((...args: ParametersTypes<T>) => {
+): (...args: Parameters<T>) => Promisify<ReturnType<T>> {
+    return ((...args: Parameters<T>) => {
         return ready.then(() => func(...args));
-    }) as (...args: ParametersTypes<T>) => Promisify<ReturnType<T>>;
+    }) as (...args: Parameters<T>) => Promisify<ReturnType<T>>;
 }
