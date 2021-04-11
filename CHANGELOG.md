@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.5.4](https://github.com/rocwind/wait-ready/compare/v0.5.3...v0.5.4) (2021-04-11)
+
+
+### Features
+
+* add waitFor() for polling check ready status ([3fc5e2d](https://github.com/rocwind/wait-ready/commit/3fc5e2d6dbbb3a19f7e1d817e74d455679d36e6d))
+
 ### [0.5.3](https://github.com/rocwind/wait-ready/compare/v0.5.2...v0.5.3) (2021-03-29)
 
 
