@@ -52,7 +52,7 @@ export type WaitReturn<T, Name extends string> = {
         [P in `reset${Name}`]: ReadyStatusSetter<T>;
     };
 
-export const wait = <T, Name extends string = ''>(name?: Name): WaitReturn<T, Name> => {
+export function wait<T, Name extends string = ''>(name?: Name): WaitReturn<T, Name> {
     let readyStatus: ReadyStatusEnum = ReadyStatusEnum.Pending;
     let resultValue: T;
     let waitPromise: Promise<T>;
@@ -127,4 +127,4 @@ export const wait = <T, Name extends string = ''>(name?: Name): WaitReturn<T, Na
             setResult(ReadyStatusEnum.Pending, value);
         },
     } as WaitReturn<T, Name>;
-};
+}
