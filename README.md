@@ -6,12 +6,12 @@ a promise based utility for perform actions after async tasks finished
 ## Install
 `npm i --save wait-ready`
 
-## Usage
+## Usage Example
 ```
 // ES6 import
-import { wait } from 'wait-ready'
+import { wait, withReady } from 'wait-ready'
 // CommonJS require
-const { wait } = require('wait-ready');
+const { wait, withReady } = require('wait-ready');
 
 const { afterReady, setReady } = wait();
 // wait for the ready status to perform some actions
@@ -24,5 +24,16 @@ setReady();
 
 // set a name for wait task
 const { afterLoadingReady, setLoadingReady } = wait('Loading');
+
+// wrap a function to execute after ready
+const doThingsAfterLoadingReady = withReady((param1) => {
+    // do things with param1
+    console.log('being execute afterLoadingReady', param1)
+}, afterLoadingReady());
+
+// just call the function, the execution will be delayed to afterLoadingReady
+doThingsAfterLoadingReady('hello world');
 ```
 
+### Changelog
+check out [CHANGELOG.md](CHANGELOG.md)
