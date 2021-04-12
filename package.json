@@ -1,6 +1,6 @@
 {
   "name": "wait-ready",
-  "version": "0.5.4",
+  "version": "0.5.5",
   "description": "a utility for executing actions after some async tasks complete",
   "main": "lib/bundle.js",
   "module": "lib/index.js",

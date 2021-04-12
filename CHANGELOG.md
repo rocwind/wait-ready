@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.5.5](https://github.com/rocwind/wait-ready/compare/v0.5.4...v0.5.5) (2021-04-12)
+
+
+### Bug Fixes
+
+* export waitFor() in index ([082d37c](https://github.com/rocwind/wait-ready/commit/082d37c53f2eee89344d963cf31831982db25535))
+
 ### [0.5.4](https://github.com/rocwind/wait-ready/compare/v0.5.3...v0.5.4) (2021-04-11)
 
 
