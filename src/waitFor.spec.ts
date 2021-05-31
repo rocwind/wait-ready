@@ -2,7 +2,7 @@ import { waitFor } from './waitFor';
 
 describe('waitFor()', () => {
     beforeEach(() => {
-        jest.useFakeTimers();
+        jest.useFakeTimers('legacy');
     });
 
     it('resolves after second check', () => {
