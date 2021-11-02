@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.5.6](https://github.com/rocwind/wait-ready/compare/v0.5.5...v0.5.6) (2021-11-02)
+
+
+### Bug Fixes
+
+* **deps:** update jest, ts-jest to v27 ([2329823](https://github.com/rocwind/wait-ready/commit/2329823bc4d4dd45f1e69dec29ec81575c77f5e9))
+* use never but not unknown for generic function arguments type in withReady() ([a060ddd](https://github.com/rocwind/wait-ready/commit/a060dddf52986ff3a6147ada7189946c22b74f96))
+
 ### [0.5.5](https://github.com/rocwind/wait-ready/compare/v0.5.4...v0.5.5) (2021-04-12)
 
 
