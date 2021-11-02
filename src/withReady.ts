@@ -6,7 +6,7 @@ type Promisify<T> = T extends Promise<unknown> ? T : Promise<T>;
  * @param ready promise to wait for
  * @returns wrapped function returns, promisified
  */
-export function withReady<T extends (...args: unknown[]) => unknown>(
+export function withReady<T extends (...args: never[]) => unknown>(
     func: T,
     ready: Promise<unknown>,
 ): (...args: Parameters<T>) => Promisify<ReturnType<T>> {
