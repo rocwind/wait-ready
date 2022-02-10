@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.6.0](https://github.com/rocwind/wait-ready/compare/v0.5.6...v0.6.0) (2022-02-10)
+
+
+### ⚠ BREAKING CHANGES
+
+* setFailed only accepts Error for reason, exported types are simplified
+
+### Features
+
+* add getFailReason to wait return ([8ff1c59](https://github.com/rocwind/wait-ready/commit/8ff1c593fb7f9dcf1af85ac906596b2c80cfc4aa))
+
 ### [0.5.6](https://github.com/rocwind/wait-ready/compare/v0.5.5...v0.5.6) (2021-11-02)
 
 
