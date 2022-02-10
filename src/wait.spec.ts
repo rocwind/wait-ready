@@ -22,10 +22,10 @@ describe('wait()', () => {
     });
 
     it('rejects with reason set', () => {
-        const { setFailed, afterReady, getResultValue } = wait<string>();
-        const reason = 'unknown error';
+        const { setFailed, afterReady, getFailReason } = wait<string>();
+        const reason = new Error('unknown error');
         setFailed(reason);
-        expect(getResultValue()).toBe(reason);
+        expect(getFailReason()).toBe(reason);
         return expect(afterReady()).rejects.toBe(reason);
     });
 

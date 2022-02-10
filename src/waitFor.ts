@@ -33,7 +33,7 @@ export function waitFor<T>(check: WaitForCheckFun<T>, options?: WaitForOptions):
             }
 
             if (timeout && Date.now() - startTimestamp > timeout) {
-                setFailed((new Error('timeout') as unknown) as T);
+                setFailed(new Error('timeout'));
                 return;
             }
 
