@@ -28,7 +28,7 @@
   "devDependencies": {
     "@babel/preset-env": "7.18.2",
     "@rollup/plugin-babel": "5.3.1",
-    "@types/jest": "27.5.1",
+    "@types/jest": "27.5.2",
     "jest": "27.5.1",
     "rollup": "2.75.5",
     "standard-version": "9.5.0",
