@@ -27,7 +27,7 @@
   "homepage": "https://github.com/rocwind/wait-ready#readme",
   "devDependencies": {
     "@babel/preset-env": "7.19.4",
-    "@rollup/plugin-babel": "6.0.0",
+    "@rollup/plugin-babel": "6.0.2",
     "@types/jest": "27.5.2",
     "jest": "27.5.1",
     "rollup": "2.79.1",
