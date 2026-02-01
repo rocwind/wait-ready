@@ -28,11 +28,11 @@
   "devDependencies": {
     "@babel/preset-env": "7.29.0",
     "@rollup/plugin-babel": "6.1.0",
-    "@types/jest": "27.5.2",
-    "jest": "27.5.1",
+    "@types/jest": "30.0.0",
+    "jest": "30.2.0",
     "rollup": "2.79.2",
     "standard-version": "9.5.0",
-    "ts-jest": "27.1.5",
+    "ts-jest": "29.4.6",
     "typescript": "5.9.3"
   }
 }
