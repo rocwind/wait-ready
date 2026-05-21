@@ -32,7 +32,7 @@
     "jest": "30.4.2",
     "rollup": "2.80.0",
     "standard-version": "9.5.0",
-    "ts-jest": "29.4.10",
+    "ts-jest": "29.4.11",
     "typescript": "5.9.3"
   }
 }
